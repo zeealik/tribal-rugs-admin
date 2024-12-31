@@ -17,7 +17,7 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white">
         <div className="p-4">
-          <h1 className="text-xl font-bold">Admin Panel</h1>
+          <h1 className="text-xl font-bold">TRP Admin</h1>
         </div>
         <nav className="mt-8">
           <NavLink
@@ -46,7 +46,7 @@ const DashboardLayout = () => {
         <div className="absolute bottom-0 w-64 p-4">
           <Button
             variant="ghost"
-            className="w-full text-white hover:bg-gray-800"
+            className="w-full text-white hover:bg-gray-800 bg-red-600"
             onClick={handleLogout}
           >
             <LogOut className="mr-2" size={20} />

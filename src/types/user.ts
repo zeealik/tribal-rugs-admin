@@ -1,9 +1,12 @@
 // src/types/user.ts
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   role: string;
+  age: number;
+  address?: string;
+  phoneNumber?: string;
 }
 
 export interface CreateUserDTO {
@@ -11,10 +14,16 @@ export interface CreateUserDTO {
   email: string;
   password: string;
   role: string;
+  age: number;
+  address?: string;
+  phoneNumber?: string;
 }
 
 export interface UpdateUserDTO {
   name?: string;
   email?: string;
   role?: string;
+  age?: number;
+  address?: string;
+  phoneNumber?: string;
 }

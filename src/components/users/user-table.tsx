@@ -18,7 +18,7 @@ interface UserTableProps {
   onDelete: (userId: string) => void;
 }
 
-type SortField = 'name' | 'email' | 'role';
+type SortField = 'name' | 'email' | 'role' | 'age' | 'address' | 'phoneNumber';
 type SortDirection = 'asc' | 'desc';
 
 export const UserTable: React.FC<UserTableProps> = ({
@@ -39,11 +39,14 @@ export const UserTable: React.FC<UserTableProps> = ({
   };
 
   const sortedUsers = [...users].sort((a, b) => {
-    const compareValue = (x: string, y: string) => {
-      return sortDirection === 'asc' ? x.localeCompare(y) : y.localeCompare(x);
+    const compareValue = (x: string | number, y: string | number) => {
+      if (typeof x === 'number' && typeof y === 'number') {
+        return sortDirection === 'asc' ? x - y : y - x;
+      }
+      return sortDirection === 'asc' ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
     };
 
-    return compareValue(a[sortField], b[sortField]);
+    return compareValue(a[sortField] ?? '', b[sortField] ?? '');
   });
 
   const SortIcon = ({ field }: { field: SortField }) => {
@@ -61,22 +64,40 @@ export const UserTable: React.FC<UserTableProps> = ({
         <TableHeader>
           <TableRow>
             <TableHead 
-              className="w-[250px] cursor-pointer"
+              className="w-[150px] cursor-pointer"
               onClick={() => handleSort('name')}
             >
               Name <SortIcon field="name" />
             </TableHead>
             <TableHead 
-              className="w-[250px] cursor-pointer"
+              className="w-[200px] cursor-pointer"
               onClick={() => handleSort('email')}
             >
               Email <SortIcon field="email" />
             </TableHead>
             <TableHead 
-              className="cursor-pointer"
+              className="w-[100px] cursor-pointer"
               onClick={() => handleSort('role')}
             >
               Role <SortIcon field="role" />
+            </TableHead>
+            <TableHead 
+              className="w-[100px] cursor-pointer"
+              onClick={() => handleSort('age')}
+            >
+              Age <SortIcon field="age" />
+            </TableHead>
+            <TableHead 
+              className="w-[200px] cursor-pointer"
+              onClick={() => handleSort('address')}
+            >
+              Address <SortIcon field="address" />
+            </TableHead>
+            <TableHead 
+              className="w-[150px] cursor-pointer"
+              onClick={() => handleSort('phoneNumber')}
+            >
+              Phone Number <SortIcon field="phoneNumber" />
             </TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
@@ -84,7 +105,7 @@ export const UserTable: React.FC<UserTableProps> = ({
         <TableBody>
           {sortedUsers.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={4} className="text-center text-muted-foreground">
+              <TableCell colSpan={7} className="text-center text-muted-foreground">
                 No users found
               </TableCell>
             </TableRow>
@@ -101,6 +122,9 @@ export const UserTable: React.FC<UserTableProps> = ({
                     {user.role}
                   </span>
                 </TableCell>
+                <TableCell>{user.age}</TableCell>
+                <TableCell>{user.address}</TableCell>
+                <TableCell>{user.phoneNumber}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button

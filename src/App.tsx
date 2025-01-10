@@ -5,6 +5,7 @@ import LoginPage from './pages/auth/login'
 import DashboardLayout from './components/dashboard-layout'
 import { useAuthStore } from './store/auth-store'
 import UsersPage from './pages/users'
+import ProductsPage from './pages/products'
 
 const queryClient = new QueryClient()
 
@@ -30,7 +31,7 @@ function App() {
             }
           >
             <Route path="users" element={<UsersPage />} />
-            {/* <Route path="products" element={<ProductsPage />} /> */}
+            <Route path="products" element={<ProductsPage />} />
             <Route index element={<Navigate to="users" replace />} />
           </Route>
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

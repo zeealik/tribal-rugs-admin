@@ -111,7 +111,7 @@ export const UserTable: React.FC<UserTableProps> = ({
             </TableRow>
           ) : (
             sortedUsers.map((user) => (
-              <TableRow key={user.id}>
+              <TableRow key={user._id}>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
@@ -138,7 +138,7 @@ export const UserTable: React.FC<UserTableProps> = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => onDelete(user.id)}
+                      onClick={() => onDelete(user._id)}
                       className="hover:bg-red-100"
                     >
                       <Trash2 className="h-4 w-4 text-red-500" />
